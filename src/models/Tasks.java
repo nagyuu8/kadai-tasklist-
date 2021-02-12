@@ -14,25 +14,32 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "getAllTasks",
-        query = "SELECT m FROM Tasks AS m ORDER BY m.id DESC"
-    )
+            name = "getAllTasks",
+            query = "SELECT m FROM Tasks AS m ORDER BY m.id DESC"
+            ),
+    @NamedQuery(
+            name = "getTasksCount",
+            query = "SELECT COUNT(m) FROM Tasks AS m"
+            )
 })
-@Table(name = "Tasks")
+
+@Table(name = "tasks")
 public class Tasks {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
+    @Column(name = "content", length = 255, nullable = false)
+    private String content;
+    
     @Column(name = "created_at", nullable = false)
     private Timestamp created_at;
 
     @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
 
-    @Column(name = "content", length = 255, nullable = false)
-    private String content;
+
 
     public Integer getId() {
         return id;
